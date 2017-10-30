@@ -67,7 +67,7 @@ data "aws_iam_policy_document" "manage_dd_integration_assume_role" {
       identifiers = ["arn:aws:iam::464622532012:root"]
     }
 
-    condition  = {
+    condition = {
       test     = "StringEquals"
       variable = "sts:ExternalId"
       values   = ["${var.external_id}"]
