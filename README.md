@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/alvin-huang/terraform-aws-datadog-integration.svg?branch=master)](https://travis-ci.org/alvin-huang/terraform-aws-datadog-integration)
+
 # terraform-aws-datadog-integration
 Terraform Module to set up AWS Datadog Integration
 
