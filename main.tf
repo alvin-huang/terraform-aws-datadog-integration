@@ -67,10 +67,10 @@ data "aws_iam_policy_document" "manage_dd_integration_assume_role" {
       identifiers = ["arn:aws:iam::464622532012:root"]
     }
 
-    condition = {
+    condition {
       test     = "StringEquals"
       variable = "sts:ExternalId"
-      values   = ["${var.external_id}"]
+      values   = [var.external_id]
     }
   }
 }
@@ -80,17 +80,17 @@ resource "aws_iam_policy" "dd_integration_policy" {
   name        = "DatadogAWSIntegrationPolicy"
   path        = "/"
   description = "Policy for Datadog integration"
-  policy      = "${data.aws_iam_policy_document.dd_integration_policy_data.json}"
+  policy      = data.aws_iam_policy_document.dd_integration_policy_data.json
 }
 
 # Datadog Integration Role #
 resource "aws_iam_role" "dd_integration_role" {
   name               = "DatadogAWSIntegrationRole"
-  assume_role_policy = "${data.aws_iam_policy_document.manage_dd_integration_assume_role.json}"
+  assume_role_policy = data.aws_iam_policy_document.manage_dd_integration_assume_role.json
 }
 
 # Attach Datadog Policy to Role #
 resource "aws_iam_role_policy_attachment" "attach_dd_policy" {
-  role       = "${aws_iam_role.dd_integration_role.name}"
-  policy_arn = "${aws_iam_policy.dd_integration_policy.arn}"
+  role       = aws_iam_role.dd_integration_role.name
+  policy_arn = aws_iam_policy.dd_integration_policy.arn
 }
