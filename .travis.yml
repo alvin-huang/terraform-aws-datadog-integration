@@ -7,10 +7,10 @@ services:
 
 before_install:
   - docker pull hashicorp/terraform:0.12.24
-  - docker pull wata727/tflint:0.5.1
+  - docker pull wata727/tflint:0.15.4
 
 script:
   - docker run --rm -v $(pwd):/data --workdir=/data -t hashicorp/terraform:0.12.24 init
   - docker run --rm --env='AWS_DEFAULT_REGION=us-east-1' -v $(pwd):/data --workdir=/data -t hashicorp/terraform:0.12.24 validate
   - docker run --rm -v $(pwd):/data --workdir=/data -t hashicorp/terraform:0.12.24 fmt -write=false -diff=true -check=true
-  - docker run --rm -v $(pwd):/data --workdir=/data -t wata727/tflint:0.5.1 --error-with-issues
+  - docker run --rm -v $(pwd):/data --workdir=/data -t wata727/tflint:0.15.4
